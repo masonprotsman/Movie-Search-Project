@@ -5,10 +5,10 @@ import '../css/Home.css';
 
 function Home() {
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [movies, setMovies] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [movies, setMovies] = useState<any[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const loadPopularMovies = async () => {
@@ -26,7 +26,7 @@ function Home() {
         loadPopularMovies();
     }, []);
 
-    const handleSearch = async (e) => {
+    const handleSearch = async (e: any) => {
         e.preventDefault();
         if (!searchQuery.trim()) return;
         if (loading) return;

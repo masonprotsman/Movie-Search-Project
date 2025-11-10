@@ -1,11 +1,15 @@
 import '../css/MovieCard.css';
 import { useMovieContext } from '../Contexts/MovieContext';
-
+import type { MouseEvent } from 'react';
 function MovieCard({ movie }: { movie: any }) {
-    const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+    const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext() as {
+        isFavorite: (id: number) => boolean;
+        addToFavorites: (movie: any) => void;
+        removeFromFavorites: (id: number) => void;
+    };
     const favorite = isFavorite(movie.id);
 
-    function toggleFavorite(e) {
+    function toggleFavorite(e: MouseEvent<HTMLButtonElement>) {
         e.stopPropagation();
         if (favorite) {
             removeFromFavorites(movie.id);
@@ -27,4 +31,4 @@ function MovieCard({ movie }: { movie: any }) {
     </div>
 }
 
-export default MovieCard
+export default MovieCard;
