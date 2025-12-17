@@ -177,7 +177,7 @@
 .movie-dialog {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border-radius: 12px;
-  max-width: 1200px;
+  max-width: 1000px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
@@ -221,7 +221,7 @@
 }
 
 .dialog-poster {
-  width: 250px;
+  width: 400px;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -245,6 +245,7 @@
 .dialog-details {
   flex: 1;
   color: white;
+  max-width: 500px;
 }
 
 .dialog-loading {
