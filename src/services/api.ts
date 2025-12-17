@@ -7,10 +7,10 @@ export const getPopularMovies = async () => {
     return data.results;
 };
 
-export const searchMovies = async (query: string) => {
-    const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+export const searchMovies = async (query: string, page: number = 1) => {
+    const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}`);
     const data = await response.json();
-    return data.results;
+    return data;
 };
 
 export const getMovieDetails = async (movieId: number) => {
@@ -19,8 +19,8 @@ export const getMovieDetails = async (movieId: number) => {
     return data;
 };
 
-export const getTrendingMovies = async (timeWindow: 'day' | 'week') => {
-    const response = await fetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}`);
+export const getTrendingMovies = async (timeWindow: 'day' | 'week', page: number = 1) => {
+    const response = await fetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&page=${page}`);
     const data = await response.json();
-    return data.results;
+    return data;
 };

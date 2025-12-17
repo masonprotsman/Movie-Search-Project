@@ -13,13 +13,18 @@ function Home() {
     const [trendingPeriod, setTrendingPeriod] = useState<'day' | 'week'>('day');
     const [startYear, setStartYear] = useState<string>("");
     const [endYear, setEndYear] = useState<string>("");
+    const [page, setPage] = useState<number>(1);
+    const [hasMore, setHasMore] = useState<boolean>(true);
+    const [loadingMore, setLoadingMore] = useState<boolean>(false);
 
     useEffect(() => {
         const loadTrendingMovies = async () => {
             try {
-                const trendingMovies = await getTrendingMovies(trendingPeriod);
-                setAllMovies(trendingMovies);
-                setMovies(trendingMovies);
+                const data = await getTrendingMovies(trendingPeriod, 1);
+                setAllMovies(data.results);
+                setMovies(data.results);
+                setPage(1);
+                setHasMore(data.page < data.total_pages);
             } catch (err) {
                 console.log(err);
                 setError("Failed to load movies...");
@@ -61,9 +66,11 @@ function Home() {
         if (loading) return;
         setLoading(true);
         try {
-            const searchResults = await searchMovies(searchQuery);
-            setAllMovies(searchResults);
-            setMovies(searchResults);
+            const data = await searchMovies(searchQuery, 1);
+            setAllMovies(data.results);
+            setMovies(data.results);
+            setPage(1);
+            setHasMore(data.page < data.total_pages);
             setError(null);
         } catch (err) {
             console.log(err);
@@ -76,9 +83,11 @@ function Home() {
     const clearSearch = async () => {
         setSearchQuery("");
         setLoading(true);
-        getTrendingMovies(trendingPeriod).then(trendingMovies => {
-            setAllMovies(trendingMovies);
-            setMovies(trendingMovies);
+        getTrendingMovies(trendingPeriod, 1).then(data => {
+            setAllMovies(data.results);
+            setMovies(data.results);
+            setPage(1);
+            setHasMore(data.page < data.total_pages);
             setError(null);
         }).catch(err => {
             console.log(err);
@@ -87,6 +96,41 @@ function Home() {
             setLoading(false);
         });
     }
+
+    const loadMoreMovies = async () => {
+        if (!hasMore || loadingMore) return;
+        
+        setLoadingMore(true);
+        try {
+            const nextPage = page + 1;
+            let data;
+            
+            if (searchQuery.trim()) {
+                data = await searchMovies(searchQuery, nextPage);
+            } else {
+                data = await getTrendingMovies(trendingPeriod, nextPage);
+            }
+            
+            setAllMovies(prev => [...prev, ...data.results]);
+            setPage(nextPage);
+            setHasMore(data.page < data.total_pages);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoadingMore(false);
+        }
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 500) {
+                loadMoreMovies();
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [hasMore, loadingMore, page, searchQuery, trendingPeriod]);
 
     return <div className="home">
         <form onSubmit={handleSearch} className="search-form">
@@ -163,11 +207,14 @@ function Home() {
         {loading ? (
             <div className="loading">Loading...</div>
         ) : (
-            <div className="movies-grid">
-                {movies.map(movie => (
-                    <MovieCard movie={movie} key={movie.id} />
-                ))}
-            </div>
+            <>
+                <div className="movies-grid">
+                    {movies.map(movie => (
+                        <MovieCard movie={movie} key={movie.id} />
+                    ))}
+                </div>
+                {loadingMore && <div className="loading-more">Loading more movies...</div>}
+            </>
         )}
     </div>
 }
