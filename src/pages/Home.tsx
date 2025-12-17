@@ -7,14 +7,18 @@ function Home() {
 
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [movies, setMovies] = useState<any[]>([]);
+    const [allMovies, setAllMovies] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [trendingPeriod, setTrendingPeriod] = useState<'day' | 'week'>('day');
+    const [startYear, setStartYear] = useState<string>("");
+    const [endYear, setEndYear] = useState<string>("");
 
     useEffect(() => {
         const loadTrendingMovies = async () => {
             try {
                 const trendingMovies = await getTrendingMovies(trendingPeriod);
+                setAllMovies(trendingMovies);
                 setMovies(trendingMovies);
             } catch (err) {
                 console.log(err);
@@ -27,6 +31,30 @@ function Home() {
         loadTrendingMovies();
     }, [trendingPeriod]);
 
+    useEffect(() => {
+        filterMoviesByDate();
+    }, [startYear, endYear, allMovies]);
+
+    const filterMoviesByDate = () => {
+        let filtered = [...allMovies];
+        
+        if (startYear) {
+            filtered = filtered.filter(movie => {
+                const releaseYear = movie.release_date ? parseInt(movie.release_date.split('-')[0]) : 0;
+                return releaseYear >= parseInt(startYear);
+            });
+        }
+        
+        if (endYear) {
+            filtered = filtered.filter(movie => {
+                const releaseYear = movie.release_date ? parseInt(movie.release_date.split('-')[0]) : 0;
+                return releaseYear <= parseInt(endYear);
+            });
+        }
+        
+        setMovies(filtered);
+    };
+
     const handleSearch = async (e: any) => {
         e.preventDefault();
         if (!searchQuery.trim()) return;
@@ -34,6 +62,7 @@ function Home() {
         setLoading(true);
         try {
             const searchResults = await searchMovies(searchQuery);
+            setAllMovies(searchResults);
             setMovies(searchResults);
             setError(null);
         } catch (err) {
@@ -48,6 +77,7 @@ function Home() {
         setSearchQuery("");
         setLoading(true);
         getTrendingMovies(trendingPeriod).then(trendingMovies => {
+            setAllMovies(trendingMovies);
             setMovies(trendingMovies);
             setError(null);
         }).catch(err => {
@@ -74,21 +104,59 @@ function Home() {
                 {searchQuery.trim() && <button type="button" className="clear-btn" onClick={clearSearch}>Clear</button>}
             </span>
         </form>
-        <div className="trending-toggle">
-            <h3 className="trending-title">Trending</h3>
-            <div className="trending-buttons">
-                <button 
-                    className={`toggle-btn ${trendingPeriod === 'day' ? 'active' : ''}`}
-                    onClick={() => setTrendingPeriod('day')}
-                >
-                    Today
-                </button>
-                <button 
-                    className={`toggle-btn ${trendingPeriod === 'week' ? 'active' : ''}`}
-                    onClick={() => setTrendingPeriod('week')}
-                >
-                    This Week
-                </button>
+        <div className="filters-container">
+            <div className="trending-toggle">
+                <h3 className="trending-title">Trending</h3>
+                <div className="trending-buttons">
+                    <button 
+                        className={`toggle-btn ${trendingPeriod === 'day' ? 'active' : ''}`}
+                        onClick={() => setTrendingPeriod('day')}
+                    >
+                        Today
+                    </button>
+                    <button 
+                        className={`toggle-btn ${trendingPeriod === 'week' ? 'active' : ''}`}
+                        onClick={() => setTrendingPeriod('week')}
+                    >
+                        This Week
+                    </button>
+                </div>
+            </div>
+            <div className="date-filter">
+                <h3 className="filter-title">Filter by Release Year</h3>
+                <div className="date-inputs">
+                    <input
+                        type="number"
+                        placeholder="Start Year"
+                        className="year-input"
+                        value={startYear}
+                        onChange={(e) => setStartYear(e.target.value)}
+                        min="1900"
+                        max="2100"
+                    />
+                    <span className="date-separator">to</span>
+                    <input
+                        type="number"
+                        placeholder="End Year"
+                        className="year-input"
+                        value={endYear}
+                        onChange={(e) => setEndYear(e.target.value)}
+                        min="1900"
+                        max="2100"
+                    />
+                    {(startYear || endYear) && (
+                        <button 
+                            type="button" 
+                            className="clear-filter-btn"
+                            onClick={() => {
+                                setStartYear("");
+                                setEndYear("");
+                            }}
+                        >
+                            Clear Filter
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
         {error && <div className="error-message">{error}</div>}
