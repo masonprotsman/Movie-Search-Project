@@ -71,6 +71,34 @@ function MovieCard({ movie }: { movie: any }) {
                     <div className="movie-overlay">
                         <button className={`favorite-btn ${favorite ? "active" : ""}`} onClick={toggleFavorite}>♥</button>
                     </div>
+                    {movie.vote_average > 0 && (
+                        <div className="rating-circle">
+                            <svg className="rating-ring" width="50" height="50">
+                                <circle
+                                    className="rating-ring-background"
+                                    stroke="#444"
+                                    strokeWidth="3"
+                                    fill="transparent"
+                                    r="20"
+                                    cx="25"
+                                    cy="25"
+                                />
+                                <circle
+                                    className="rating-ring-progress"
+                                    stroke={movie.vote_average >= 7 ? "#21d07a" : movie.vote_average >= 5 ? "#d2d531" : "#db2360"}
+                                    strokeWidth="3"
+                                    fill="transparent"
+                                    r="20"
+                                    cx="25"
+                                    cy="25"
+                                    strokeDasharray={`${(movie.vote_average / 10) * 125.6} 125.6`}
+                                    strokeLinecap="round"
+                                    transform="rotate(-90 25 25)"
+                                />
+                            </svg>
+                            <span className="rating-score">{movie.vote_average.toFixed(1)}</span>
+                        </div>
+                    )}
                 </div>
                 <div className="movie-info">
                     <h3>{movie.title}</h3>
@@ -93,7 +121,37 @@ function MovieCard({ movie }: { movie: any }) {
                                 />
                                 <div className="dialog-details">
                                     <div className="dialog-header">
-                                        <h2>{movie.title}</h2>
+                                        <div className="dialog-title-row">
+                                            <h2>{movie.title}</h2>
+                                            {movie.vote_average > 0 && (
+                                                <div className="rating-circle dialog-rating">
+                                                    <svg className="rating-ring" width="60" height="60">
+                                                        <circle
+                                                            className="rating-ring-background"
+                                                            stroke="#444"
+                                                            strokeWidth="4"
+                                                            fill="transparent"
+                                                            r="24"
+                                                            cx="30"
+                                                            cy="30"
+                                                        />
+                                                        <circle
+                                                            className="rating-ring-progress"
+                                                            stroke={movie.vote_average >= 7 ? "#21d07a" : movie.vote_average >= 5 ? "#d2d531" : "#db2360"}
+                                                            strokeWidth="4"
+                                                            fill="transparent"
+                                                            r="24"
+                                                            cx="30"
+                                                            cy="30"
+                                                            strokeDasharray={`${(movie.vote_average / 10) * 150.8} 150.8`}
+                                                            strokeLinecap="round"
+                                                            transform="rotate(-90 30 30)"
+                                                        />
+                                                    </svg>
+                                                    <span className="rating-score">{movie.vote_average.toFixed(1)}</span>
+                                                </div>
+                                            )}
+                                        </div>
                                         {movieDetails?.tagline && (
                                             <p className="dialog-tagline">"{movieDetails.tagline}"</p>
                                         )}
@@ -206,7 +264,8 @@ function MovieCard({ movie }: { movie: any }) {
                     <div className="tickets-popup" onClick={(e) => e.stopPropagation()}>
                         <button className="tickets-close" onClick={closeTickets}>×</button>
                         <div className="tickets-content">
-                            <h2>Get Tickets for {movie.title}</h2>
+                            <h2 className='tickets'>Get Tickets</h2>
+                            <h3 className='title'>{movie.title}</h3>
                             <div className="ticket-links">
                                 <a 
                                     href={`https://www.fandango.com/search?q=${encodeURIComponent(movie.title)}`}

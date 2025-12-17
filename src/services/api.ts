@@ -18,3 +18,9 @@ export const getMovieDetails = async (movieId: number) => {
     const data = await response.json();
     return data;
 };
+
+export const getTrendingMovies = async (timeWindow: 'day' | 'week') => {
+    const response = await fetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}`);
+    const data = await response.json();
+    return data.results;
+};

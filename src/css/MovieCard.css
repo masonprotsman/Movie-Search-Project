@@ -73,6 +73,42 @@
   color: #ff4757;
 }
 
+.rating-circle {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.rating-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.rating-ring-background {
+  opacity: 0.3;
+}
+
+.rating-ring-progress {
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.rating-score {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 2;
+  position: relative;
+}
+
 .rating-select {
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
@@ -181,10 +217,30 @@
   padding: 2rem;
 }
 
+.dialog-poster-container {
+  position: relative;
+}
+
 .dialog-poster {
   width: 250px;
   border-radius: 8px;
   object-fit: cover;
+}
+
+.dialog-rating {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dialog-rating .rating-ring {
+  width: 60px;
+  height: 60px;
+}
+
+.dialog-rating .rating-score {
+  font-size: 1.1rem;
 }
 
 .dialog-details {
@@ -205,6 +261,12 @@
   align-items: flex-start;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.dialog-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .dialog-actions {
@@ -464,12 +526,19 @@
 }
 
 .tickets-content h2 {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 0.5rem 0;
   font-size: 1.8rem;
   background: linear-gradient(to bottom, #92c5fb, #0579fe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.tickets-content h3 {
+  margin: 0 0 2rem 0;
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: #ccc;
 }
 
 .location-error,

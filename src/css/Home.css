@@ -5,6 +5,49 @@
   box-sizing: border-box;
 }
 
+.trending-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.trending-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.trending-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggle-btn {
+  padding: 0.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid #666;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #999;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(to bottom, #0579fe, #92c5fb);
+  border: none;
+}
+
 .search-css {
   width: 80%;
   display: flex;

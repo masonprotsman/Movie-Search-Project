@@ -1,6 +1,6 @@
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../services/api";
+import { searchMovies, getPopularMovies, getTrendingMovies } from "../services/api";
 import '../css/Home.css';
 
 function Home() {
@@ -9,12 +9,13 @@ function Home() {
     const [movies, setMovies] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [trendingPeriod, setTrendingPeriod] = useState<'day' | 'week'>('day');
 
     useEffect(() => {
-        const loadPopularMovies = async () => {
+        const loadTrendingMovies = async () => {
             try {
-                const popularMovies = await getPopularMovies();
-                setMovies(popularMovies);
+                const trendingMovies = await getTrendingMovies(trendingPeriod);
+                setMovies(trendingMovies);
             } catch (err) {
                 console.log(err);
                 setError("Failed to load movies...");
@@ -23,8 +24,8 @@ function Home() {
                 setLoading(false);
             }
         };
-        loadPopularMovies();
-    }, []);
+        loadTrendingMovies();
+    }, [trendingPeriod]);
 
     const handleSearch = async (e: any) => {
         e.preventDefault();
@@ -46,8 +47,8 @@ function Home() {
     const clearSearch = async () => {
         setSearchQuery("");
         setLoading(true);
-        getPopularMovies().then(popularMovies => {
-            setMovies(popularMovies);
+        getTrendingMovies(trendingPeriod).then(trendingMovies => {
+            setMovies(trendingMovies);
             setError(null);
         }).catch(err => {
             console.log(err);
@@ -73,6 +74,23 @@ function Home() {
                 {searchQuery.trim() && <button type="button" className="clear-btn" onClick={clearSearch}>Clear</button>}
             </span>
         </form>
+        <div className="trending-toggle">
+            <h3 className="trending-title">Trending</h3>
+            <div className="trending-buttons">
+                <button 
+                    className={`toggle-btn ${trendingPeriod === 'day' ? 'active' : ''}`}
+                    onClick={() => setTrendingPeriod('day')}
+                >
+                    Today
+                </button>
+                <button 
+                    className={`toggle-btn ${trendingPeriod === 'week' ? 'active' : ''}`}
+                    onClick={() => setTrendingPeriod('week')}
+                >
+                    This Week
+                </button>
+            </div>
+        </div>
         {error && <div className="error-message">{error}</div>}
         {loading ? (
             <div className="loading">Loading...</div>
