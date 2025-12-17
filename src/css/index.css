@@ -28,6 +28,7 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
+  background: linear-gradient(to bottom right, #131313, #6b6b6b);
 }
 
 #root {

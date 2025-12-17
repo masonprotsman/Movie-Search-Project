@@ -122,3 +122,441 @@
     font-size: 1.2rem;
   }
 }
+
+/* Dialog Styles */
+.movie-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.movie-dialog {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  max-width: 1200px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dialog-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.dialog-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.dialog-content {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.dialog-poster {
+  width: 250px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.dialog-details {
+  flex: 1;
+  color: white;
+}
+
+.dialog-loading {
+  padding: 4rem;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.dialog-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dialog-details h2 {
+  margin: 0;
+  font-size: 2rem;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dialog-tagline {
+  font-style: italic;
+  color: #aaa;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.dialog-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.dialog-info-grid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.dialog-release-date,
+.dialog-rating,
+.dialog-runtime,
+.dialog-budget,
+.dialog-revenue,
+.dialog-genres,
+.dialog-director {
+  color: #ddd;
+}
+
+.dialog-overview {
+  color: #ddd;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.dialog-cast {
+  margin: 1.5rem 0;
+  color: #ddd;
+}
+
+.cast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.cast-member {
+  color: #fff;
+}
+
+.cast-character {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.favorite-dialog-btn {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+  border: 2px solid #666;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.favorite-dialog-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #999;
+}
+
+.favorite-dialog-btn.active {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: #ff4757;
+  color: #ff4757;
+}
+
+.favorite-dialog-btn.active:hover {
+  background: rgba(255, 71, 87, 0.3);
+}
+
+.trailer-link {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.trailer-link:hover {
+  opacity: 0.9;
+}
+
+/* Trailer Popup Styles */
+.trailer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+}
+
+.trailer-popup {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.trailer-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  font-size: 2rem;
+  line-height: 1;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2001;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.trailer-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.tickets-link {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tickets-link:hover {
+  opacity: 0.9;
+}
+
+/* Tickets Dialog Styles */
+.tickets-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+}
+
+.tickets-popup {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+}
+
+.tickets-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2001;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.tickets-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.tickets-content {
+  color: white;
+}
+
+.tickets-content h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.8rem;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.location-error,
+.location-loading,
+.location-success {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.location-error {
+  color: #ffaa00;
+}
+
+.location-loading {
+  color: #aaa;
+}
+
+.location-success {
+  color: #4ade80;
+}
+
+.ticket-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.ticket-provider {
+  display: block;
+  padding: 1rem;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.ticket-provider:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .dialog-content {
+    flex-direction: column;
+    padding: 1.5rem;
+    padding-top: 3rem;
+  }
+
+  .dialog-poster {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .dialog-details h2 {
+    font-size: 1.5rem;
+  }
+
+  .trailer-overlay {
+    padding: 1rem;
+  }
+
+  .trailer-close {
+    top: -45px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .tickets-overlay {
+    padding: 1rem;
+  }
+
+  .tickets-popup {
+    padding: 1.5rem;
+    padding-top: 3rem;
+  }
+
+  .tickets-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .ticket-links {
+    grid-template-columns: 1fr;
+  }
+}

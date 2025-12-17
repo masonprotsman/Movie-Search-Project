@@ -59,17 +59,19 @@ function Home() {
 
     return <div className="home">
         <form onSubmit={handleSearch} className="search-form">
-            <input
-                type="text"
-                placeholder="Search movies..."
-                className="search-input"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {/* create clear button to reset the search */}
-            {/* change the code to call a function instead of inline ts */}
-            <button type="submit" className="search-btn">Search</button>
-            { searchQuery.trim() && <button type="button" className="clear-btn" onClick={clearSearch}>Clear</button>}
+            <span className="search-css">
+                <input
+                    type="text"
+                    placeholder="Search movies..."
+                    className="search-input"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                {/* create clear button to reset the search */}
+                {/* change the code to call a function instead of inline ts */}
+                <button type="submit" className="search-btn">Search</button>
+                {searchQuery.trim() && <button type="button" className="clear-btn" onClick={clearSearch}>Clear</button>}
+            </span>
         </form>
         {error && <div className="error-message">{error}</div>}
         {loading ? (

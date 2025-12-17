@@ -1,4 +1,9 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   background-color: #000000;
   padding: 1rem 2rem;
   display: flex;
@@ -12,19 +17,48 @@
   font-weight: bold;
 }
 
+.navbar-brand a {
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+}
+
 .navbar-links {
   display: flex;
   gap: 2rem;
 }
 
 .nav-link {
-  font-size: 1rem;
+  font-size: 1.25rem;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: background-color 0.2s;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
 }
 
 .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-links {
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  background: linear-gradient(to bottom, #92c5fb, #0579fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+}
+
+.nav-links:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
