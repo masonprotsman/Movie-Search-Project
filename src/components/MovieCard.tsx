@@ -191,7 +191,7 @@ function MovieCard({ movie }: { movie: any }) {
                                             <strong>Release Date:</strong> {movie.release_date}
                                         </p>
                                         <p className="dialog-rating">
-                                            <strong>Rating:</strong> {movie.vote_average?.toFixed(1)}/10 ({movieDetails?.vote_count || movie.vote_count} votes)
+                                            <strong>Rating:</strong> {movie.vote_average?.toFixed(1)}/10
                                         </p>
                                         {movieDetails?.runtime && (
                                             <p className="dialog-runtime">
