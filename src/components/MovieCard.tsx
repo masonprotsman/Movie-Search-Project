@@ -1,6 +1,6 @@
 import '../css/MovieCard.css';
 import { useMovieContext } from '../Contexts/MovieContext';
-import { useState, useEffect, type MouseEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
 import { getMovieDetails } from '../services/api';
 
 function MovieCard({ movie }: { movie: any }) {
@@ -15,8 +15,6 @@ function MovieCard({ movie }: { movie: any }) {
     const [isLoading, setIsLoading] = useState(false);
     const [showTrailer, setShowTrailer] = useState(false);
     const [showTickets, setShowTickets] = useState(false);
-    const [userLocation, setUserLocation] = useState<{ lat: number; lon: number } | null>(null);
-    const [locationError, setLocationError] = useState<string>("");
 
     function toggleFavorite(e: MouseEvent<HTMLButtonElement>) {
         e.stopPropagation();
@@ -57,32 +55,12 @@ function MovieCard({ movie }: { movie: any }) {
     }
 
     function openTickets() {
-        setLocationError("");
         setShowTickets(true);
-        
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setUserLocation({
-                        lat: position.coords.latitude,
-                        lon: position.coords.longitude
-                    });
-                },
-                (error) => {
-                    setLocationError("Unable to get your location. Please enable location services.");
-                    console.error("Geolocation error:", error);
-                }
-            );
-        } else {
-            setLocationError("Geolocation is not supported by your browser.");
-        }
     }
 
     function closeTickets(e?: MouseEvent<HTMLDivElement | HTMLButtonElement>) {
         e?.stopPropagation();
         setShowTickets(false);
-        setUserLocation(null);
-        setLocationError("");
     }
 
     return (
