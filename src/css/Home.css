@@ -246,6 +246,56 @@
 
   .search-form {
     margin-bottom: 1rem;
+    height: 200px;
+    padding: 2rem 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .search-form::before {
+    border-radius: 0;
+  }
+
+  .search-css {
+    width: 90%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-btn,
+  .clear-btn {
+    width: 100%;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .date-inputs {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .year-input {
+    width: calc(50% - 0.25rem);
+    min-width: 100px;
+  }
+
+  .date-separator {
+    display: none;
   }
 }
 
