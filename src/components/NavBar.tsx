@@ -7,7 +7,7 @@ function NavBar() {
             <Link to="/Movie-Search-Project">🎬 Cinema Searcher</Link>
         </div>
         <div className="navbar-links">
-            <Link to="/Movie-Search-Project" className="nav-links">Home</Link>
+            <Link to="/Movie-Search-Project" className="nav-links nav-link-home">Home</Link>
             <Link to="/Movie-Search-Project/favorites" className="nav-links">Favorites</Link>
         </div>
     </nav>
