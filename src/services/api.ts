@@ -31,14 +31,22 @@ export const getTrendingMovies = async (timeWindow: 'day' | 'week') => {
     // Combine all results
     const allMovies = allData.flatMap(data => data.results);
     
+    // Filter out movies that haven't been released yet
+    const today = new Date();
+    const releasedMovies = allMovies.filter(movie => {
+        if (!movie.release_date) return false;
+        const releaseDate = new Date(movie.release_date);
+        return releaseDate <= today;
+    });
+    
     // Sort by release date (newest first)
-    const sortedMovies = allMovies.sort((a, b) => {
+    const sortedMovies = releasedMovies.sort((a, b) => {
         const dateA = a.release_date ? new Date(a.release_date).getTime() : 0;
         const dateB = b.release_date ? new Date(b.release_date).getTime() : 0;
         return dateB - dateA;
     });
     
-    // Return first page structure with all 100 movies
+    // Return first page structure with filtered and sorted movies
     return {
         ...allData[0],
         results: sortedMovies,
