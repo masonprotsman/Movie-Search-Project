@@ -21,7 +21,7 @@ function Home() {
     useEffect(() => {
         const loadTrendingMovies = async () => {
             try {
-                const data = await getTrendingMovies(trendingPeriod, 1);
+                const data = await getTrendingMovies(trendingPeriod);
                 setAllMovies(data.results);
                 setMovies(data.results);
                 setPage(1);
@@ -84,7 +84,7 @@ function Home() {
     const clearSearch = async () => {
         setSearchQuery("");
         setLoading(true);
-        getTrendingMovies(trendingPeriod, 1).then(data => {
+        getTrendingMovies(trendingPeriod).then(data => {
             setAllMovies(data.results);
             setMovies(data.results);
             setPage(1);
@@ -109,7 +109,7 @@ function Home() {
             if (searchQuery.trim()) {
                 data = await searchMovies(searchQuery, nextPage);
             } else {
-                data = await getTrendingMovies(trendingPeriod, nextPage);
+                data = await getTrendingMovies(trendingPeriod);
             }
             
             setAllMovies(prev => [...prev, ...data.results]);

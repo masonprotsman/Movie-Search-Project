@@ -19,7 +19,7 @@ export const getMovieDetails = async (movieId: number) => {
     return data;
 };
 
-export const getTrendingMovies = async (timeWindow: 'day' | 'week', page: number = 1) => {
+export const getTrendingMovies = async (timeWindow: 'day' | 'week') => {
     // Fetch first 5 pages of trending movies to get 100 total
     const pages = [1, 2, 3, 4, 5];
     const responses = await Promise.all(
