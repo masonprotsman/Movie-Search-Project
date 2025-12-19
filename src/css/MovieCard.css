@@ -80,17 +80,22 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  z-index: 10;
 }
 
 .rating-ring {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  display: block;
 }
 
 .rating-ring-background {
@@ -106,7 +111,11 @@
   font-weight: bold;
   font-size: 1rem;
   z-index: 2;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 }
 
 .rating-select {
@@ -125,6 +134,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
 }
 
 .movie-info h3 {
@@ -654,17 +664,18 @@
   .rating-circle {
     width: 40px;
     height: 40px;
-    top: -20px;
-    right: 8px;
-  }
-
-  .rating-text {
-    font-size: 0.75rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
   }
 
   .rating-ring {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  .rating-score {
+    font-size: 0.75rem;
   }
 
   .movie-overlay {
