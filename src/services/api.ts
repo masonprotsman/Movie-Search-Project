@@ -20,7 +20,29 @@ export const getMovieDetails = async (movieId: number) => {
 };
 
 export const getTrendingMovies = async (timeWindow: 'day' | 'week', page: number = 1) => {
-    const response = await fetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&page=${page}`);
-    const data = await response.json();
-    return data;
+    // Fetch first 5 pages of trending movies to get 100 total
+    const pages = [1, 2, 3, 4, 5];
+    const responses = await Promise.all(
+        pages.map(p => fetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&page=${p}`))
+    );
+    
+    const allData = await Promise.all(responses.map(res => res.json()));
+    
+    // Combine all results
+    const allMovies = allData.flatMap(data => data.results);
+    
+    // Sort by release date (newest first)
+    const sortedMovies = allMovies.sort((a, b) => {
+        const dateA = a.release_date ? new Date(a.release_date).getTime() : 0;
+        const dateB = b.release_date ? new Date(b.release_date).getTime() : 0;
+        return dateB - dateA;
+    });
+    
+    // Return first page structure with all 100 movies
+    return {
+        ...allData[0],
+        results: sortedMovies,
+        page: 1,
+        total_pages: 1
+    };
 };
