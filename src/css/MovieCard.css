@@ -632,3 +632,55 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 625px) {
+  .movie-card {
+    font-size: 0.85rem;
+  }
+
+  .movie-info {
+    padding: 0.5rem;
+  }
+
+  .movie-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .movie-info p {
+    font-size: 0.75rem;
+  }
+
+  .rating-circle {
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    right: 8px;
+  }
+
+  .rating-text {
+    font-size: 0.75rem;
+  }
+
+  .rating-ring {
+    width: 40px;
+    height: 40px;
+  }
+
+  .movie-overlay {
+    padding: 0.5rem;
+  }
+
+  .overlay-title {
+    font-size: 1rem;
+  }
+
+  .overlay-actions {
+    gap: 0.25rem;
+  }
+
+  .action-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
