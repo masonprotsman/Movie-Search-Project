@@ -16,6 +16,7 @@ function Home() {
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [loadingMore, setLoadingMore] = useState<boolean>(false);
+    const [filtersOpen, setFiltersOpen] = useState<boolean>(false);
 
     useEffect(() => {
         const loadTrendingMovies = async () => {
@@ -148,10 +149,18 @@ function Home() {
                 {searchQuery.trim() && <button type="button" className="clear-btn" onClick={clearSearch}>Clear</button>}
             </span>
         </form>
-        <div className="filters-container">
-            <div className="trending-toggle">
-                <h3 className="trending-title">Trending</h3>
-                <div className="trending-buttons">
+        <div className="filters-wrapper">
+            <button 
+                className="filters-toggle"
+                onClick={() => setFiltersOpen(!filtersOpen)}
+            >
+                <span>Filters</span>
+                <span className={`arrow ${filtersOpen ? 'open' : ''}`}>▼</span>
+            </button>
+            <div className={`filters-container ${filtersOpen ? 'open' : ''}`}>
+                <div className="trending-toggle">
+                    <h3 className="trending-title">Trending</h3>
+                    <div className="trending-buttons">
                     <button 
                         className={`toggle-btn ${trendingPeriod === 'day' ? 'active' : ''}`}
                         onClick={() => setTrendingPeriod('day')}
@@ -202,6 +211,7 @@ function Home() {
                     )}
                 </div>
             </div>
+        </div>
         </div>
         {error && <div className="error-message">{error}</div>}
         {loading ? (
